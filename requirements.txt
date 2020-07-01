@@ -1,0 +1,7 @@
+imageio==2.8.0
+imageio-ffmpeg==0.4.2
+matplotlib==3.2.1
+numpy==1.18.5
+opencv-python==4.2.0.34
+progress==1.5
+PyAutoGUI==0.9.50

@@ -1,0 +1,13 @@
+"C:\Program Files (x86)\IntelSWTools\openvino_2020.3.194\bin\setupvars.bat"
+
+python src\cursorcontroller.py -f "C:\Users\Swastik\Documents\iot_ud_3\models\intel\face-detection-retail-0005\FP32\face-detection-retail-0005.xml" -p "C:\Users\Swastik\Documents\iot_ud_3\models\intel\head-pose-estimation-adas-0001\FP32\head-pose-estimation-adas-0001.xml" -l "C:\Users\Swastik\Documents\iot_ud_3\models\intel\facial-landmarks-35-adas-0002\FP32\facial-landmarks-35-adas-0002.xml" -g "C:\Users\Swastik\Documents\iot_ud_3\models\intel\gaze-estimation-adas-0002\FP32\gaze-estimation-adas-0002.xml" -i "CAM" --output "C:\Users\Swastik\Documents\iot_ud_3\charts" -v True
+
+python src\cursorcontroller.py -f "C:\Users\Swastik\Documents\iot_ud_3\models\intel\face-detection-retail-0005\FP32\face-detection-retail-0005.xml" -p "C:\Users\Swastik\Documents\iot_ud_3\models\intel\head-pose-estimation-adas-0001\FP32\head-pose-estimation-adas-0001.xml" -l "C:\Users\Swastik\Documents\iot_ud_3\models\intel\facial-landmarks-35-adas-0002\FP32\facial-landmarks-35-adas-0002.xml" -g "C:\Users\Swastik\Documents\iot_ud_3\models\intel\gaze-estimation-adas-0002\FP32\gaze-estimation-adas-0002.xml" -i "C:\Users\Swastik\Documents\iot_ud_3\bin\demo.mp4" -v True -o "C:\Users\Swastik\Documents\iot_ud_3\charts"
+
+
+python src\cursorcontroller.py -f "C:\Users\Swastik\Documents\iot_ud_3\models\intel\face-detection-retail-0005\FP16\face-detection-retail-0005.xml" -p "C:\Users\Swastik\Documents\iot_ud_3\models\intel\head-pose-estimation-adas-0001\FP16\head-pose-estimation-adas-0001.xml" -l "C:\Users\Swastik\Documents\iot_ud_3\models\intel\facial-landmarks-35-adas-0002\FP16\facial-landmarks-35-adas-0002.xml" -g "C:\Users\Swastik\Documents\iot_ud_3\models\intel\gaze-estimation-adas-0002\FP16\gaze-estimation-adas-0002.xml" -i "C:\Users\Swastik\Documents\iot_ud_3\bin\demo.mp4" -v True -o "C:\Users\Swastik\Documents\iot_ud_3\charts"
+
+python src\cursorcontroller.py -f "C:\Users\Swastik\Documents\iot_ud_3\models\intel\face-detection-retail-0005\FP16-INT8\face-detection-retail-0005.xml" -p "C:\Users\Swastik\Documents\iot_ud_3\models\intel\head-pose-estimation-adas-0001\FP16-INT8\head-pose-estimation-adas-0001.xml" -l "C:\Users\Swastik\Documents\iot_ud_3\models\intel\facial-landmarks-35-adas-0002\FP16-INT8\facial-landmarks-35-adas-0002.xml" -g "C:\Users\Swastik\Documents\iot_ud_3\models\intel\gaze-estimation-adas-0002\FP16\gaze-estimation-adas-0002.xml" -i "C:\Users\Swastik\Documents\iot_ud_3\bin\demo.mp4" -v True -o "C:\Users\Swastik\Documents\iot_ud_3\charts"
+
+
+

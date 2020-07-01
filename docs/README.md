@@ -101,8 +101,7 @@ python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\
 
 <hr></hr>
 
- The following is the list of command-line arguments which can be configured upto your choice. 
-   
+ The following is the list of command-line arguments which can be configured upto your choice.   
 | Short Flag | Long Flag | What it does | Default Value |
 |------------|-----------|--------------|---------------|
 | -h   | --help   |  Show help message and exit|    - |
@@ -146,7 +145,7 @@ In order to benchmark the application across different hardwares we use the *Int
 - ### Model 2 : Head Pose Estimation :
      - GFlops: 0.105
 
-|Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
+| | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
  |Inference Time: | CPU |   0.0056  |  0.0025  | 0.0025  |
  |Loading Time:   | CPU | 0.1933   | 0.2257  | 0.2882  |
@@ -161,7 +160,7 @@ In order to benchmark the application across different hardwares we use the *Int
 - ### Model 3 : Facial Landmark :
      - GFlops : 0.042
 
- |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
+ | | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
  |Inference Time: | CPU |   0.0067  |  0.0075  | 0.0070  |
  |Loading Time:   | CPU | 0.7737    | 0.9425  | 2.8837  |
@@ -176,7 +175,7 @@ In order to benchmark the application across different hardwares we use the *Int
 - ### Model 4: Gaze Estimation :
     - GFlops: 0.139
 
- |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
+ | | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
  |Inference Time: | CPU |   0.0057  |  0.0050  | 0.0054  |
  |Loading Time:   | CPU | 0.2597  | 0.3556  | 0.2512 |

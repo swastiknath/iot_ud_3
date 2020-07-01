@@ -1,0 +1,16 @@
+
+Inference Statistics
+Face Detection Model: 
+ Inference Time: 0.0060s, 
+ Loading Time: 0.3190s, 
+ Pre-processing Time:0.0000s 
+ Post-processing Time:0.0000s 
+Head Pose Estimation Model Inference Time: 0.0020 , Loading Time: 0.1040s, 
+ Pre-processing Time:0.0000s 
+ Post-processing Time:0.0000s 
+Facial Landmark Detection Model Inference Time: 0.0030, Loading Time: 0.5980s, 
+ Pre-processing Time:0.0000s 
+ Post-processing Time:0.0010s 
+Gaze Estimation Model Inference Time: 0.0021, Loading Time: 0.1470s, 
+ Pre-processing Time:0.0000s 
+ Post-processing Time:0.0000s 
