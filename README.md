@@ -1,4 +1,4 @@
-# Computer Pointer Controller
+# Cursor Pointer Controller
 
 ### Udacity Intel (R) Edge AI For IoT Developers Nanodegree.
 ### Swastik Nath.
