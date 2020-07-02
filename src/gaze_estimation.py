@@ -7,6 +7,8 @@ CURSOR CONTROLLER: INFERENCE MODULE.
 import logging as log
 import os
 import sys
+import math
+import numpy as np
 
 from openvino.inference_engine import IECore
 
@@ -45,12 +47,6 @@ class GazeEstimation:
         model_bin = os.path.splitext(model_xml)[0] + '.bin'
         self.network = self.ie.read_network(model_xml, model_bin)
 
-        if 'CPU' in device:
-            supported_layers = self.ie.query_network(self.network, 'CPU')
-            unsupported_layers = [l for l in self.network.layers.keys() if l not in supported_layers]
-            if len(unsupported_layers) != 0:
-                log.info("Unsupported Layers Found, Applying CPU Extension...")
-                log.info(unsupported_layers)
         if 'CPU' in device and cpu_extension:
             self.ie.add_extension(cpu_extension, 'CPU')
 
@@ -58,9 +54,9 @@ class GazeEstimation:
             supported_layers = self.ie.query_network(self.network, 'CPU')
             unsupported_layers = [l for l in self.network.layers.keys() if l not in supported_layers]
             if len(unsupported_layers) != 0:
-                log.info("One or More Unsupported Layers cannot be interpreted. Use MKLDNN Extension if not already "
+                log.error("One or More Unsupported Layers cannot be interpreted. Use MKLDNN Extension if not already "
                          "done")
-                log.info(unsupported_layers)
+                log.error(unsupported_layers)
                 sys.exit(1)
 
         self.input_blob = next(iter(self.network.inputs))
@@ -116,3 +112,24 @@ class GazeEstimation:
         multi_input_dict = {self.input_blob: inp_dict}
         self.inference_handler = self.inference_plugin.start_async(request_id=0, inputs=inp_dict)
         return self.inference_plugin
+
+    def process_output(self, gaze_vector, angle_r_fc):
+
+        gaze_vector = gaze_vector / np.linalg.norm(gaze_vector)
+        gaze_x = gaze_vector[0]
+        gaze_y = gaze_vector[1]
+        gaze_z = gaze_vector[2]
+        gaze_yaw = np.arctan(gaze_y / gaze_x)
+
+        sin = np.sin(angle_r_fc * math.pi / 180.)
+        cos = np.cos(angle_r_fc * math.pi / 180.)
+
+        move_x = gaze_x * cos + gaze_y * sin
+        move_y = - gaze_x * sin + gaze_y * cos
+
+        gaze_yaw = gaze_yaw * np.pi / 180.0
+
+        gaze_x_angle = np.arctan2(gaze_x, -gaze_z)
+        gaze_y_angle = np.arctan2(-gaze_y, -gaze_z)
+
+        return move_x, move_y, gaze_x_angle, gaze_y_angle, gaze_yaw

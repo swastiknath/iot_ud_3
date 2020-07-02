@@ -2,7 +2,7 @@
 AUTHOR: SWASTIK NATH
 INTEL(R) DISTRIBUTION OF OPENVINO TOOLKIT
 CURSOR CONTROLLER : ESTIMATORS.
-LAST EDITED : 07/01/2020 REVISION : 0.149.23
+LAST EDITED : 07/01/2020 REVISION : 0.150.24
 """
 import logging as log
 import math
@@ -132,6 +132,7 @@ def main():
     This Function handles all the Inference Loop.
     """
     global initial_h, initial_w, inf_end_fd, inf_end_hp, inf_end_fl, gaze_inf_stop, outfile, scale, pre_fd_time, post_fd_time, pre_hp_time, post_hp_time, pre_fl_time, post_fl_time, pre_ge_time, post_ge_time
+
     ie = IECore()
     args = args_parser().parse_args()
     network_face_detect = FaceDetection()
@@ -166,9 +167,16 @@ def main():
             input_stream = args.input
             log.warning('Please wait, converting to compatible video format...')
             dst_file = 'bin/input.avi'
-            assert os.path.isfile(args.input), "Specified File does not exist."
+            try:
+                os.path.isfile(args.input)
+            except OSError as e:
+                log.error(f'The Input File cannot be found in the specified location. {e}')
+
             if args.output_dir:
-                assert os.path.exists(args.output_dir), "Output Directory doesn't exists"
+                try:
+                    os.path.exists(args.output_dir)
+                except OSError as e:
+                    log.error(f'The Output Directory is not Found.{e}')
 
             # OpenCV cannot handle .mp4 files directly across different devices, especially on Windows.
             # That's why we take in the .mp4 file and convert it to .avi and then perform inference.
@@ -238,6 +246,8 @@ def main():
                 post_fd_time = time.time() - post_fd_time
 
                 if len(faces) >= 2:
+                    # This is to make sure that only a single person is present in the frame.
+                    # If more than 1 is present, we issue a warning and pause the inference.
                     log.warning("More than 1 person is on the Frame, Inference Paused...")
 
                 if len(faces) != 0 and len(faces) < 2:
@@ -285,18 +295,11 @@ def main():
                         res_landmarks = network_facial_landmark.get_output(0)
                         landmarks = []
 
-                        for i in range(0, res_landmarks.shape[1], 2):
-                            x, y = int(xmin + res_landmarks[0][i] * head_pose.shape[1]), int(
-                                ymin + res_landmarks[0][i + 1] * head_pose.shape[0])
-                            cv2.circle(next_frame_vis, (x, y), 1, (0, 110, 110), 3)
-                            landmarks.append([x, y])
-
-                        lx = landmarks[1][0]
-                        ly = landmarks[1][1]
-                        rx = landmarks[3][0]
-                        ry = landmarks[3][1]
-                        mx = landmarks[4][0]
-                        my = landmarks[4][1]
+                        lx, ly, rx, ry, mx, my = network_facial_landmark.process_output(res_landmarks,
+                                                                                        landmarks,
+                                                                                        next_frame_vis,
+                                                                                        head_pose,
+                                                                                        xmin, ymin)
 
                         diff_x = int((xmax - xmin) / 6)
                         diff_y = int((ymax - ymin) / 8)
@@ -326,22 +329,9 @@ def main():
 
                         post_ge_time = time.time()
                         gaze_vector = network_gaze_estimator.get_output(0, 'gaze_vector')[0]
-                        gaze_vector = gaze_vector / np.linalg.norm(gaze_vector)
-                        gaze_x = gaze_vector[0]
-                        gaze_y = gaze_vector[1]
-                        gaze_z = gaze_vector[2]
-                        gaze_yaw = np.arctan(gaze_y / gaze_x)
 
-                        sin = np.sin(angle_r_fc * math.pi / 180.)
-                        cos = np.cos(angle_r_fc * math.pi / 180.)
+                        move_x, move_y, gaze_x_angle, gaze_y_angle, gaze_yaw = network_gaze_estimator.process_output(gaze_vector, angle_r_fc)
 
-                        move_x = gaze_x * cos + gaze_y * sin
-                        move_y = - gaze_x * sin + gaze_y * cos
-
-                        gaze_yaw = gaze_yaw * np.pi / 180.0
-
-                        gaze_x_angle = np.arctan2(gaze_x, -gaze_z)
-                        gaze_y_angle = np.arctan2(-gaze_y, -gaze_z)
                         post_ge_time = time.time() - post_ge_time
 
                         mouse_controller.move(move_x, move_y)
@@ -486,11 +476,14 @@ def main():
                         inf_end_fl, load_fl, pre_fl_time, post_fl_time, gaze_inf_stop, load_ge, pre_ge_time,
                         post_ge_time))
 
-        print("Face Detection Model Inference Time: {:.4f} \n "
-              "Head Pose Estimation Model Inference Time: {:.4f} \n "
-              "Facial Landmark Detection Model Inference Time: {:.4f}\n"
-              "Gaze Estimation Model Inference Time: {:.4f} ".format(inf_end_fd, inf_end_hp, inf_end_fl, gaze_inf_stop))
-        print("Cursor Controller Exited")
+        log.info("Face Detection Model Inference Time: {:.4f} \n "
+                 "Head Pose Estimation Model Inference Time: {:.4f} \n "
+                 "Facial Landmark Detection Model Inference Time: {:.4f}\n"
+                 "Gaze Estimation Model Inference Time: {:.4f} ".format(inf_end_fd, inf_end_hp, inf_end_fl,
+                                                                        gaze_inf_stop))
+        log.info("Cursor Controller Exited")
+    except Exception as e:
+        log.error(f'Inference Module Error {e}')
 
 
 if __name__ == "__main__":

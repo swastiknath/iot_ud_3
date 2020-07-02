@@ -7,7 +7,7 @@ CURSOR CONTROLLER: INFERENCE MODULE.
 import logging as log
 import os
 import sys
-
+import cv2
 from openvino.inference_engine import IECore
 
 
@@ -45,12 +45,6 @@ class FacialLandmarkDetection:
         model_bin = os.path.splitext(model_xml)[0] + '.bin'
         self.network = self.ie.read_network(model_xml, model_bin)
 
-        if 'CPU' in device:
-            supported_layers = self.ie.query_network(self.network, 'CPU')
-            unsupported_layers = [l for l in self.network.layers.keys() if l not in supported_layers]
-            if len(unsupported_layers) != 0:
-                log.info("Unsupported Layers Found, Applying CPU Extension...")
-                log.info(unsupported_layers)
         if 'CPU' in device and cpu_extension:
             self.ie.add_extension(cpu_extension, 'CPU')
 
@@ -122,3 +116,18 @@ class FacialLandmarkDetection:
         """
         performance_count = self.inference_plugin.requests[request_id].get_perf_counts()
         return performance_count
+
+    def process_output(self, res_landmarks, landmarks, next_frame_vis, head_pose, xmin, ymin):
+        for i in range(0, res_landmarks.shape[1], 2):
+            x, y = int(xmin + res_landmarks[0][i] * head_pose.shape[1]), int(
+                ymin + res_landmarks[0][i + 1] * head_pose.shape[0])
+            cv2.circle(next_frame_vis, (x, y), 1, (0, 110, 110), 3)
+            landmarks.append([x, y])
+
+        lx = landmarks[1][0]
+        ly = landmarks[1][1]
+        rx = landmarks[3][0]
+        ry = landmarks[3][1]
+        mx = landmarks[4][0]
+        my = landmarks[4][1]
+        return lx, ly, rx, ry, mx, my

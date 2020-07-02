@@ -45,12 +45,6 @@ class FaceDetection:
         model_bin = os.path.splitext(model_xml)[0] + '.bin'
         self.network = self.ie.read_network(model_xml, model_bin)
 
-        if 'CPU' in device:
-            supported_layers = self.ie.query_network(self.network, 'CPU')
-            unsupported_layers = [l for l in self.network.layers.keys() if l not in supported_layers]
-            if len(unsupported_layers) != 0:
-                log.info("Unsupported Layers Found, Applying CPU Extension...")
-                log.info(unsupported_layers)
         if 'CPU' in device and cpu_extension:
             self.ie.add_extension(cpu_extension, 'CPU')
 
@@ -58,9 +52,9 @@ class FaceDetection:
             supported_layers = self.ie.query_network(self.network, 'CPU')
             unsupported_layers = [l for l in self.network.layers.keys() if l not in supported_layers]
             if len(unsupported_layers) != 0:
-                log.info("One or More Unsupported Layers cannot be interpreted. Use MKLDNN Extension if not already "
+                log.error("One or More Unsupported Layers cannot be interpreted. Use MKLDNN Extension if not already "
                          "done")
-                log.info(unsupported_layers)
+                log.error(unsupported_layers)
                 sys.exit(1)
 
         self.input_blob = next(iter(self.network.inputs))
