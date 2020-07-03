@@ -42,8 +42,8 @@ We need to make sure that everything is correctly initialized before starting up
  - src :  Source Python Files for several model objects and the inference code.
  #### Initializing the Environment[The following are for Windows only]
   - Extract the .zip package of this package and Open the Terminal in the extracted folder. 
-  - Create a Virtual Environment(We assume to create iot_ud_3 here):
-  ```python
+  - Create a Virtual Environment(We assume to create iot_ud_3 here:
+  ```
   pip install virtualenv
   virtualenv iot_ud_3
   iot_ud_3/Source/activate.bat
@@ -54,14 +54,16 @@ We need to make sure that everything is correctly initialized before starting up
   pip install -r requirements.txt
   ```
   - Initialize the OpenVino Environment :
-  ```python
+  ```
   <OPENVINO_INSTALL_DIR>/bin/setupvars.sh
   python src/env_test.py
   ```
   If everything is working properly we should see a success message. 
 
  #### Downloading and Saving the models: 
+ 
  We need to issue the following commands to download and save the PreTrained Models in the IR format in the `models` folder. 
+ 
  ```
  mkdir models 
 
@@ -204,7 +206,7 @@ Keeping in mind the stand out suggestions, I have implemented the following poin
 
  - Inference Pipeline for both Video File as Webcam feed as Input: I have implemented a solution to aceept both Video Files and Webcam Feed as input. In case of Webcame we just need to use the `--input "CAM"` CLI argument and for video files we can use `--input <FILENAME>`. 
 
- - Mitigating Horizontal Flip on Some Camera Modules: Some WebCam Modules horizontally flip the camera feed, but horizontally flipping the input image will result in inaccurate estimations by the models. So we can use `-q` or `--mirror_mode` set to `True` to strainght up the flipped image. 
+ - Mitigating Horizontal Flip on Some Camera Modules: Some WebCam Modules horizontally flip the camera feed, but horizontally flipping the input image will result in inaccurate estimations by the models. So we can use `-q` or `--mirror_mode` set to `True` to straight up the flipped image. 
 
 ### Async Inference
 
