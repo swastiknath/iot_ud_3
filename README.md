@@ -64,7 +64,7 @@ We need to make sure that everything is correctly initialized before starting up
   
   If everything is working properly we should see a success message. 
 
- #### Downloading and Saving the models: 
+#### Downloading and Saving the models: 
  
  We need to issue the following commands to download and save the PreTrained Models in the IR format in the `models` folder. 
  
@@ -130,9 +130,9 @@ python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\
 In order to benchmark the application across different hardwares we use the *Intel(R) DevCloud* and multiple precisions of the pre-trained model IR files. We take into account only two device scenario in this case, one is CPU and another one is IGPU becasue the application will mostly run of these types of hardware if deployed. 
 
 ### Model 1 : Face Detection 
-    - FP16/INT8 precisions are not available for `face-detection-adas-binary-0001` pre-trained model. 
+   - FP16/INT8 precisions are not available for `face-detection-adas-binary-0001` pre-trained model. 
 
-    - GFlops: 0.611
+   - GFlops: 0.611
     
     
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
@@ -148,7 +148,7 @@ In order to benchmark the application across different hardwares we use the *Int
   
 
 ### Model 2 : Head Pose Estimation :
-     - GFlops: 0.105
+   - GFlops: 0.105
 
 
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
@@ -164,7 +164,7 @@ In order to benchmark the application across different hardwares we use the *Int
   
 
 ### Model 3 : Facial Landmark :
-     - GFlops : 0.042
+   - GFlops : 0.042
 
 
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
@@ -180,7 +180,7 @@ In order to benchmark the application across different hardwares we use the *Int
 
 
 ### Model 4: Gaze Estimation :
-    - GFlops: 0.139
+   - GFlops: 0.139
     
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
