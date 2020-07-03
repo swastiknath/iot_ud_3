@@ -34,13 +34,15 @@ In this project we feed this model the cropped face from the detected faces afte
 
 
 We need to make sure that everything is correctly initialized before starting up the program. 
+
 #### Directory Strucure: 
  - bin : In this directory we save in the pre-recorded video like for this project the provided video. We also save in the file with .avi format if the format of the video is not compatible.
  - charts : We save in the Output Videos in this directory. 
  - docs : Documentation about how the things in this project work.
  - models :  We save in the pre-trained IR model in this directory after downloading them with `model_downloader.py`.
  - src :  Source Python Files for several model objects and the inference code.
- #### Initializing the Environment[The following are for Windows only]
+
+#### Initializing the Environment[The following are for Windows only]
   - Extract the .zip package of this package and Open the Terminal in the extracted folder. 
   - Create a Virtual Environment(We assume to create iot_ud_3 here:
   ```
@@ -53,11 +55,13 @@ We need to make sure that everything is correctly initialized before starting up
   ```
   pip install -r requirements.txt
   ```
-  - Initialize the OpenVino Environment :
+  - Initialize the OpenVino Environment: We need to properly initialize the OpenVINO Environment and add proper Envrionment Variables.
+  
   ```
   <OPENVINO_INSTALL_DIR>/bin/setupvars.sh
   python src/env_test.py
   ```
+  
   If everything is working properly we should see a success message. 
 
  #### Downloading and Saving the models: 
@@ -83,17 +87,16 @@ We need to make sure that everything is correctly initialized before starting up
 
 In order to get the program up and running, you can follow the following examples to get started. Make sure you have completed all the steps in the `Project Setup and Installation` before attempting the following command.
 
-- ### Running Inference on Pre-recorded Videos with Intermediate Visuals ON:  
+### Running Inference on Pre-recorded Videos with Intermediate Visuals ON:  
 
 ```
 python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\face-detection-retail-0005.xml" -p "models\intel\head-pose-estimation-adas-0001\FP32\head-pose-estimation-adas-0001.xml" -l "models\intel\facial-landmarks-35-adas-0002\FP32\facial-landmarks-35-adas-0002.xml" -g "models\intel\gaze-estimation-adas-0002\FP32\gaze-estimation-adas-0002.xml" -i "bin\demo.mp4" -v True -o "charts\"
 ```  
 
-- ### Running Inference on WebCam Streaming with Intermediate Visuals ON:
+### Running Inference on WebCam Streaming with Intermediate Visuals ON:
 
 ```
 python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\face-detection-retail-0005.xml" -p "models\intel\head-pose-estimation-adas-0001\FP32\head-pose-estimation-adas-0001.xml" -l "models\intel\facial-landmarks-35-adas-0002\FP32\facial-landmarks-35-adas-0002.xml" -g "models\intel\gaze-estimation-adas-0002\FP32\gaze-estimation-adas-0002.xml" -i "CAM" -v True
-
 ```
 
 ## Documentation
@@ -126,7 +129,7 @@ python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\
 
 In order to benchmark the application across different hardwares we use the *Intel(R) DevCloud* and multiple precisions of the pre-trained model IR files. We take into account only two device scenario in this case, one is CPU and another one is IGPU becasue the application will mostly run of these types of hardware if deployed. 
 
- - ### Model 1 : Face Detection 
+### Model 1 : Face Detection 
     - FP16/INT8 precisions are not available for `face-detection-adas-binary-0001` pre-trained model. 
 
     - GFlops: 0.611
@@ -144,7 +147,7 @@ In order to benchmark the application across different hardwares we use the *Int
  |Post-Processing Time | IGPU| 0.0043 |N/A | N/A |  
   
 
-- ### Model 2 : Head Pose Estimation :
+### Model 2 : Head Pose Estimation :
      - GFlops: 0.105
 
 
@@ -160,7 +163,7 @@ In order to benchmark the application across different hardwares we use the *Int
  |Post-Processing Time | IGPU| 0 |0 | 0 |  
   
 
-- ### Model 3 : Facial Landmark :
+### Model 3 : Facial Landmark :
      - GFlops : 0.042
 
 
@@ -176,7 +179,7 @@ In order to benchmark the application across different hardwares we use the *Int
  |Post-Processing Time | IGPU| 0.0010 |0 | 0 | 
 
 
-- ### Model 4: Gaze Estimation :
+### Model 4: Gaze Estimation :
     - GFlops: 0.139
     
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
