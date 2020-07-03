@@ -32,7 +32,6 @@ In this project we feed this model the cropped face from the detected faces afte
 
 ## Project Set Up and Installation
 
-<hr></hr>
 
 We need to make sure that everything is correctly initialized before starting up the program. 
 #### Directory Strucure: 
@@ -79,7 +78,6 @@ We need to make sure that everything is correctly initialized before starting up
 
 ## Demonstration:
 
-<hr></hr>
 
 In order to get the program up and running, you can follow the following examples to get started. Make sure you have completed all the steps in the `Project Setup and Installation` before attempting the following command.
 
@@ -198,6 +196,7 @@ From the observations above we get to see that the model inference time is sligh
 In case of FP32, FP16 and INT8 models both in case of CPU and IGPU the models load slightly faster from FP32 to INT8, and the models perfroms inference slightly faster from FP32 to INT8, as because with less precision there left less complexities to be taken care of. That's why a model with INT8 precision perfroms faster than that of the FP32 and that is why there is less data that needs to be accessed in case of 8bit Integet than the 32bit Floating points. 
 
 ## Stand Out Suggestions
+
 Keeping in mind the stand out suggestions, I have implemented the following points laid out. 
  - Benchmarking the Running Times of Different Layers: I have used the `get_perf_counts()` API to print out the layerwise execution time which the user can enable through the CLI using `-m` or `--print_layer_metrics` argument set to `True`. 
  
@@ -208,6 +207,7 @@ Keeping in mind the stand out suggestions, I have implemented the following poin
  - Mitigating Horizontal Flip on Some Camera Modules: Some WebCam Modules horizontally flip the camera feed, but horizontally flipping the input image will result in inaccurate estimations by the models. So we can use `-q` or `--mirror_mode` set to `True` to strainght up the flipped image. 
 
 ### Async Inference
+
 I have implemented only Asynchronous Inference in each of the model, the Asynchronous inference actually comes into help if the thread is multi-threaded, when instead of blocking all the threads it can perform asynchronously. That is why power-usage and efficiency will be enhanced for sure. 
 
 ### Edge Cases
