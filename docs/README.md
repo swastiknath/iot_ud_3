@@ -3,7 +3,8 @@
 ### Udacity Intel (R) Edge AI For IoT Developers Nanodegree.
 ### Swastik Nath.
 
-<hr></hr>
+
+![cursor_controller](https://github.com/swastiknath/iot_ud_3/raw/master/docs/output.gif)
 
 The Cursor Pointer Controller leverages multiple Computer Vision Models and delivers the estimation of eye-gaze vectors from head angles and eye images from the detected faces in provided frames of video. In this project, we have used the Intel (R) OpenVINO Toolkit 2020.R3 to perform edge inference over pre-recorded video files or video streams over WebCam. Several Intel (R) OpenVINO Pretrained Models connected to form a cascade of a detection-estimation workflow.  
 

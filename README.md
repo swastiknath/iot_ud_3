@@ -1,9 +1,8 @@
 # Cursor Pointer Controller
-
-### Udacity Intel (R) Edge AI For IoT Developers Nanodegree.
 ### Swastik Nath.
+Made With Intel(R) Distribution of OpenVINO Toolkit 2020.R3 LTS.
 
-<hr></hr>
+![](https://github.com/swastiknath/iot_ud_3/raw/master/docs/output.gif)
 
 The Cursor Pointer Controller leverages multiple Computer Vision Models and delivers the estimation of eye-gaze vectors from head angles and eye images from the detected faces in provided frames of video. In this project, we have used the Intel (R) OpenVINO Toolkit 2020.R3 to perform edge inference over pre-recorded video files or video streams over WebCam. Several Intel (R) OpenVINO Pretrained Models connected to form a cascade of a detection-estimation workflow.  
 
@@ -33,19 +32,20 @@ In this project we feed this model the cropped face from the detected faces afte
 
 ## Project Set Up and Installation
 
-<hr></hr>
 
 We need to make sure that everything is correctly initialized before starting up the program. 
+
 #### Directory Strucure: 
  - bin : In this directory we save in the pre-recorded video like for this project the provided video. We also save in the file with .avi format if the format of the video is not compatible.
  - charts : We save in the Output Videos in this directory. 
  - docs : Documentation about how the things in this project work.
  - models :  We save in the pre-trained IR model in this directory after downloading them with `model_downloader.py`.
  - src :  Source Python Files for several model objects and the inference code.
- #### Initializing the Environment[The following are for Windows only]
+
+#### Initializing the Environment[The following are for Windows only]
   - Extract the .zip package of this package and Open the Terminal in the extracted folder. 
-  - Create a Virtual Environment(We assume to create iot_ud_3 here):
-  ```python
+  - Create a Virtual Environment(We assume to create iot_ud_3 here:
+  ```
   pip install virtualenv
   virtualenv iot_ud_3
   iot_ud_3/Source/activate.bat
@@ -55,15 +55,19 @@ We need to make sure that everything is correctly initialized before starting up
   ```
   pip install -r requirements.txt
   ```
-  - Initialize the OpenVino Environment :
-  ```python
+  - Initialize the OpenVino Environment: We need to properly initialize the OpenVINO Environment and add proper Envrionment Variables.
+  
+  ```
   <OPENVINO_INSTALL_DIR>/bin/setupvars.sh
   python src/env_test.py
   ```
+  
   If everything is working properly we should see a success message. 
 
- #### Downloading and Saving the models: 
+#### Downloading and Saving the models: 
+ 
  We need to issue the following commands to download and save the PreTrained Models in the IR format in the `models` folder. 
+ 
  ```
  mkdir models 
 
@@ -80,29 +84,28 @@ We need to make sure that everything is correctly initialized before starting up
 
 ## Demonstration:
 
-<hr></hr>
 
 In order to get the program up and running, you can follow the following examples to get started. Make sure you have completed all the steps in the `Project Setup and Installation` before attempting the following command.
 
-- ### Running Inference on Pre-recorded Videos with Intermediate Visuals ON:  
+### Running Inference on Pre-recorded Videos with Intermediate Visuals ON:  
 
 ```
 python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\face-detection-retail-0005.xml" -p "models\intel\head-pose-estimation-adas-0001\FP32\head-pose-estimation-adas-0001.xml" -l "models\intel\facial-landmarks-35-adas-0002\FP32\facial-landmarks-35-adas-0002.xml" -g "models\intel\gaze-estimation-adas-0002\FP32\gaze-estimation-adas-0002.xml" -i "bin\demo.mp4" -v True -o "charts\"
 ```  
 
-- ### Running Inference on WebCam Streaming with Intermediate Visuals ON:
+### Running Inference on WebCam Streaming with Intermediate Visuals ON:
 
 ```
 python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\face-detection-retail-0005.xml" -p "models\intel\head-pose-estimation-adas-0001\FP32\head-pose-estimation-adas-0001.xml" -l "models\intel\facial-landmarks-35-adas-0002\FP32\facial-landmarks-35-adas-0002.xml" -g "models\intel\gaze-estimation-adas-0002\FP32\gaze-estimation-adas-0002.xml" -i "CAM" -v True
-
 ```
 
 ## Documentation
 
-<hr></hr>
+
 
  The following is the list of command-line arguments which can be configured upto your choice. 
-   
+ 
+ 
 | Short Flag | Long Flag | What it does | Default Value |
 |------------|-----------|--------------|---------------|
 | -h   | --help   |  Show help message and exit|    - |
@@ -126,10 +129,11 @@ python src\cursorcontroller.py -f "models\intel\face-detection-retail-0005\FP32\
 
 In order to benchmark the application across different hardwares we use the *Intel(R) DevCloud* and multiple precisions of the pre-trained model IR files. We take into account only two device scenario in this case, one is CPU and another one is IGPU becasue the application will mostly run of these types of hardware if deployed. 
 
- - ### Model 1 : Face Detection 
-    - FP16/INT8 precisions are not available for `face-detection-adas-binary-0001` pre-trained model. 
+### Model 1 : Face Detection 
+   - FP16/INT8 precisions are not available for `face-detection-adas-binary-0001` pre-trained model. 
 
-    - GFlops: 0.611
+   - GFlops: 0.611
+    
     
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
@@ -143,8 +147,9 @@ In order to benchmark the application across different hardwares we use the *Int
  |Post-Processing Time | IGPU| 0.0043 |N/A | N/A |  
   
 
-- ### Model 2 : Head Pose Estimation :
-     - GFlops: 0.105
+### Model 2 : Head Pose Estimation :
+   - GFlops: 0.105
+
 
 |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
@@ -158,10 +163,11 @@ In order to benchmark the application across different hardwares we use the *Int
  |Post-Processing Time | IGPU| 0 |0 | 0 |  
   
 
-- ### Model 3 : Facial Landmark :
-     - GFlops : 0.042
+### Model 3 : Facial Landmark :
+   - GFlops : 0.042
 
- |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
+
+|Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
  |Inference Time: | CPU |   0.0067  |  0.0075  | 0.0070  |
  |Loading Time:   | CPU | 0.7737    | 0.9425  | 2.8837  |
@@ -173,10 +179,10 @@ In order to benchmark the application across different hardwares we use the *Int
  |Post-Processing Time | IGPU| 0.0010 |0 | 0 | 
 
 
-- ### Model 4: Gaze Estimation :
-    - GFlops: 0.139
-
- |Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
+### Model 4: Gaze Estimation :
+   - GFlops: 0.139
+    
+|Benchmark | Device | FP32 (seconds) | FP16 (seconds)| INT8 (seconds) |
  |-|--------|-----|------|------|
  |Inference Time: | CPU |   0.0057  |  0.0050  | 0.0054  |
  |Loading Time:   | CPU | 0.2597  | 0.3556  | 0.2512 |
@@ -195,6 +201,7 @@ From the observations above we get to see that the model inference time is sligh
 In case of FP32, FP16 and INT8 models both in case of CPU and IGPU the models load slightly faster from FP32 to INT8, and the models perfroms inference slightly faster from FP32 to INT8, as because with less precision there left less complexities to be taken care of. That's why a model with INT8 precision perfroms faster than that of the FP32 and that is why there is less data that needs to be accessed in case of 8bit Integet than the 32bit Floating points. 
 
 ## Stand Out Suggestions
+
 Keeping in mind the stand out suggestions, I have implemented the following points laid out. 
  - Benchmarking the Running Times of Different Layers: I have used the `get_perf_counts()` API to print out the layerwise execution time which the user can enable through the CLI using `-m` or `--print_layer_metrics` argument set to `True`. 
  
@@ -202,9 +209,10 @@ Keeping in mind the stand out suggestions, I have implemented the following poin
 
  - Inference Pipeline for both Video File as Webcam feed as Input: I have implemented a solution to aceept both Video Files and Webcam Feed as input. In case of Webcame we just need to use the `--input "CAM"` CLI argument and for video files we can use `--input <FILENAME>`. 
 
- - Mitigating Horizontal Flip on Some Camera Modules: Some WebCam Modules horizontally flip the camera feed, but horizontally flipping the input image will result in inaccurate estimations by the models. So we can use `-q` or `--mirror_mode` set to `True` to strainght up the flipped image. 
+ - Mitigating Horizontal Flip on Some Camera Modules: Some WebCam Modules horizontally flip the camera feed, but horizontally flipping the input image will result in inaccurate estimations by the models. So we can use `-q` or `--mirror_mode` set to `True` to straight up the flipped image. 
 
 ### Async Inference
+
 I have implemented only Asynchronous Inference in each of the model, the Asynchronous inference actually comes into help if the thread is multi-threaded, when instead of blocking all the threads it can perform asynchronously. That is why power-usage and efficiency will be enhanced for sure. 
 
 ### Edge Cases
