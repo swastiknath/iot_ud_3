@@ -1,7 +1,6 @@
 # Cursor Pointer Controller
-
-### Udacity Intel (R) Edge AI For IoT Developers Nanodegree.
 ### Swastik Nath.
+Made With Intel(R) Distribution of OpenVINO Toolkit 2020.R3 LTS.
 
 ![](https://github.com/swastiknath/iot_ud_3/raw/master/docs/output.gif)
 
