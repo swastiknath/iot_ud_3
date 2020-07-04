@@ -1,4 +1,4 @@
-# Cursor Pointer Controller
+# Cursor Pointer Controller                                                 
 ### Swastik Nath.
 Made With Intel(R) Distribution of OpenVINO Toolkit 2020.R3 LTS.
 
@@ -219,4 +219,4 @@ I have implemented only Asynchronous Inference in each of the model, the Asynchr
 
  -  In case of multiple people in the frame the gaze vector will not be correctly sensed as because the two people might be staring at opposite directions of each other, thereby leading to a great confusion. So, I have decided to pause the inference and issue a Warning to the User to avoid inappropriate gaze prediction and confusion for the model whenever there is more than 1 person is present in the frame. 
 
-
+![](https://raw.githubusercontent.com/swastiknath/iot_ud_3/master/docs/intel_ai.jpg)
