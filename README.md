@@ -8,7 +8,7 @@ The Cursor Pointer Controller leverages multiple Computer Vision Models and deli
 
 ### Words about the Models in Work:
 
- - #### Face Detection Model (face-detection-adas-binary-0001) [PreTrained Model URL](https://docs.openvinotoolkit.org/latest/_models_intel_face_detection_adas_binary_0001_description_face_detection_adas_binary_0001.html)
+ - #### Face Detection Model (face-detection-adas-binary-0001) [PreTrained Model URL](https://docs.openvinotoolkit.org/latest/omz_models_intel_face_detection_adas_0001_description_face_detection_adas_0001.html)
  This model uses a deep neural network with MobileNet architecture implemented with **depth-wise** convolution layers to reduce the amount of computation for the 3x3 convolution block. There are also some 1x1 Convolution layers which are binary which can be implemented using effective binary XNOR + POPCOUNT approach. The model takes image as input with name `input` and size of 1x3x384x672 with expected color order as BGR and outputs the confidence, and the cordinates of the detected faces.  
 
 At the onset, a face detection model object is fed the original video frames to infer the coordinates of the detected face above a define confidence threshold. 
@@ -71,7 +71,7 @@ We need to make sure that everything is correctly initialized before starting up
  ```
  mkdir models 
 
- python <OPENVINO_INSTALL_DIR>/deployment_tools/tools/model_downloader/downloader.py --name face-detection-adas-binary-001 --output_dir models/
+ python <OPENVINO_INSTALL_DIR>/deployment_tools/tools/model_downloader/downloader.py --name face-detection-adas-binary-0001 --output_dir models/
 
  python <OPENVINO_INSTALL_DIR>/deployment_tools/tools/model_downloader/downloader.py --name head-pose-estimation-adas-0001 --output_dir models/
 
